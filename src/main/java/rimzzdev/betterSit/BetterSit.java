@@ -7,6 +7,7 @@ import rimzzdev.betterSit.commands.SitCommand;
 import rimzzdev.betterSit.config.BetterSitConfig;
 import rimzzdev.betterSit.config.LanguageManager;
 import rimzzdev.betterSit.listeners.PlayerListener;
+import rimzzdev.betterSit.utils.UpdateChecker;
 
 public final class BetterSit extends JavaPlugin {
 
@@ -36,6 +37,9 @@ public final class BetterSit extends JavaPlugin {
 
         // Слушатель событий
         getServer().getPluginManager().registerEvents(new PlayerListener(sitManager, languageManager), this);
+
+        // Проверка обновлений
+        new UpdateChecker(this, "raidenshik", "BetterSit").check();
 
         getLogger().info("BetterSit enabled.");
     }
