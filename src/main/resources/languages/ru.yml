@@ -1,0 +1,8 @@
+# Русские сообщения
+prefix: "<gradient:#FFAA00:#FFFF55>[BetterSit]</gradient> <reset>"
+already-sitting: "<red>Вы уже сидите!</red>"
+now-sitting: "<green>Вы сели. <bold>Shift</bold> чтобы встать.</green>"
+sit-failed: "<red>Не удалось сесть здесь.</red>"
+stood-up: "<gray>Вы встали.</gray>"
+cooldown: "<red>Подождите <#FFAA00>{0}</#FFAA00> секунд перед тем, как сесть снова.</red>"
+reload-success: "<green>Конфигурация и языки BetterSit перезагружены.</green>"

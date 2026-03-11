@@ -1,0 +1,12 @@
+name: BetterSit
+version: '1.1'
+main: rimzzdev.betterSit.BetterSit
+api-version: '1.21'
+author: Rimzzy
+permissions:
+  betterSit.sit:
+    description: Allows using /sit
+    default: true
+  betterSit.admin:
+    description: Allows reloading the plugin
+    default: op

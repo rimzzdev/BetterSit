@@ -1,0 +1,8 @@
+# English messages
+prefix: "<gradient:gold:yellow>[BetterSit]</gradient> <reset>"
+already-sitting: "<red>You are already sitting!</red>"
+now-sitting: "<green>You are now sitting. <bold>Sneak</bold> to stand up.</green>"
+sit-failed: "<red>Could not sit here.</red>"
+stood-up: "<gray>You stood up.</gray>"
+cooldown: "<red>Please wait <#FFAA00>{0}</#FFAA00> seconds before sitting again.</red>"
+reload-success: "<green>BetterSit configuration and languages reloaded.</green>"
