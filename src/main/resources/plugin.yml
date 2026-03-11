@@ -1,5 +1,5 @@
 name: BetterSit
-version: '1.2'
+version: '${project.version}'
 main: rimzzdev.betterSit.BetterSit
 api-version: '1.21'
 author: Rimzzy
