@@ -2,7 +2,7 @@
 
 **BetterSit** is a simple and lightweight plugin for **Paper 1.21.11** that allows players to sit anywhere using the `/sit` command. Stand up by sneaking (pressing Shift).
 
-[![Paper](https://img.shields.io/badge/Paper-1.21.11-blue?style=flat-square)](https://papermc.io)
+[![Paper](https://img.shields.io/badge/Paper-1.21-blue?style=flat-square)](https://papermc.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/Version-1.1-green?style=flat-square)](https://github.com/raidenshik/BetterSit/releases)
 
