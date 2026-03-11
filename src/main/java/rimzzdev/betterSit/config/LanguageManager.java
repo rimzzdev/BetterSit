@@ -84,6 +84,9 @@ public class LanguageManager {
             return Component.empty();
         }
         Component prefix = getMessage("prefix");
+        if (prefix == Component.empty()) {
+            return message;
+        }
         return prefix.append(message);
     }
 

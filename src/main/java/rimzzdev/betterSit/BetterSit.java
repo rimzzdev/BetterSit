@@ -2,7 +2,7 @@ package rimzzdev.betterSit;
 
 import co.aikar.commands.PaperCommandManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import rimzzdev.betterSit.commands.ReloadCommand;
+import rimzzdev.betterSit.commands.BsitCommand;
 import rimzzdev.betterSit.commands.SitCommand;
 import rimzzdev.betterSit.config.BetterSitConfig;
 import rimzzdev.betterSit.config.LanguageManager;
@@ -33,15 +33,13 @@ public final class BetterSit extends JavaPlugin {
         // ACF Command Manager
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new SitCommand(sitManager, languageManager));
-        commandManager.registerCommand(new ReloadCommand(this));
+        commandManager.registerCommand(new BsitCommand(this));
 
         // Слушатель событий
         getServer().getPluginManager().registerEvents(new PlayerListener(sitManager, languageManager), this);
 
         // Проверка обновлений
         new UpdateChecker(this, "raidenshik", "BetterSit").check();
-
-        getLogger().info("BetterSit enabled.");
     }
 
     @Override
@@ -49,7 +47,6 @@ public final class BetterSit extends JavaPlugin {
         if (sitManager != null) {
             sitManager.unsitAll();
         }
-        getLogger().info("BetterSit disabled.");
     }
 
     public static BetterSit getInstance() {
