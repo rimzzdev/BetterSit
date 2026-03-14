@@ -8,8 +8,8 @@ import rimzzdev.betterSit.commands.SitCommand;
 import rimzzdev.betterSit.config.BetterSitConfig;
 import rimzzdev.betterSit.config.LanguageManager;
 import rimzzdev.betterSit.listeners.PlayerListener;
+import rimzzdev.betterSit.utils.ModrinthUpdateChecker;
 
-@SuppressWarnings("unused")
 public final class BetterSit extends JavaPlugin {
 
     private static BetterSit instance;
@@ -32,7 +32,18 @@ public final class BetterSit extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new PlayerListener(sitManager, languageManager, this), this);
 
-        getLogger().info("BetterSit enabled.");
+        getServer().getScheduler().runTaskAsynchronously(this, () -> {
+            String latest = ModrinthUpdateChecker.getLatestVersion();
+            String current = getPluginMeta().getVersion();
+            if (latest != null && !current.equalsIgnoreCase(latest)) {
+                getLogger().warning("=========================================");
+                getLogger().warning("New version available: " + latest + " (current: " + current + ")");
+                getLogger().warning("Download: https://modrinth.com/plugin/bettersit/version/" + latest);
+                getLogger().warning("=========================================");
+            }
+        });
+
+        getLogger().info("BetterSit v" + getPluginMeta().getVersion() + " enabled.");
     }
 
     @Override

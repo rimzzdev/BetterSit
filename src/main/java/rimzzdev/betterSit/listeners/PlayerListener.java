@@ -47,7 +47,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        ModrinthUpdateChecker.checkForUpdate(event.getPlayer(), plugin);
+        // Используем правильное имя метода – checkForPlayer
+        ModrinthUpdateChecker.checkForPlayer(event.getPlayer(), plugin);
     }
 
     @EventHandler
