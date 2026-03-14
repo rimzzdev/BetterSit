@@ -1,23 +1,28 @@
 # BetterSit 🪑
 
-**BetterSit** is a simple and lightweight plugin for **Paper 1.21** that allows players to sit anywhere using the `/sit` command. Stand up by sneaking (pressing Shift).
+**BetterSit** is a lightweight and feature‑rich plugin for **Paper 1.21.11** that allows players to sit, lie down, and even sit around campfires.  
+All messages are fully customizable via language files supporting **MiniMessage**, **HEX colors**, and legacy `&` codes.
 
 [![Paper](https://img.shields.io/badge/Paper-1.21-blue?style=flat-square)](https://papermc.io)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://github.com/raidenshik/BetterSit/blob/main/LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.1-green?style=flat-square)](https://github.com/raidenshik/BetterSit/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://github.com/rimzzdev/BetterSit/blob/main/LICENSE)
+[![Version](https://img.shields.io/badge/Version-1.4-green?style=flat-square)](https://modrinth.com/plugin/bettersit)
 
 ---
 
 ## ✨ Features
 
-- ✅ Simple `/sit` command – sit down right where you stand
-- ✅ Stand up automatically by sneaking (Shift)
-- ✅ Multi-language support (English, Russian, and more)
-- ✅ Modern text formatting – MiniMessage, HEX colors (`<#FF55FF>`), gradients
-- ✅ Configurable height offset and block centering
-- ✅ Cooldown system for `/sit` command
-- ✅ Reload command (`/bettersit`) – no server restart needed
-- ✅ Automatic update checker (notifies admins about new versions)
+- ✅ `/sit` – sit down where you stand (toggle: use again or sneak to stand up)
+- ✅ `/lay` – lie down on the ground (toggle)
+- ✅ Right‑click on **stairs**, **slabs** (non‑pressure), **carpets** or **campfires** to sit on the center of the block / around the campfire
+- ✅ **Campfire sitting** – automatically finds the nearest free spot around the campfire and rotates the player towards it
+- ✅ Per‑player toggle for each block category: `/bsit toggle stairs|slab|carpet|campfire`
+- ✅ Multi‑language support (English, Russian, and more)
+- ✅ Modern text formatting – MiniMessage, HEX, gradients, etc.
+- ✅ Configurable height offsets for sitting and lying
+- ✅ Cooldown system for `/sit` and `/lay`
+- ✅ Reload command: `/bsit reload`
+- ✅ Version info: `/bsit version`
+- ✅ Update checker – notifies admins in console and in chat (with clickable link) when a new version is available on **Modrinth**
 
 ---
 
@@ -30,10 +35,10 @@
 
 ## 🚀 Installation
 
-1. Download the latest `.jar` file from the [Releases](https://github.com/raidenshik/BetterSit/releases) page.
+1. Download the latest `.jar` from the [Modrinth page](https://modrinth.com/plugin/bettersit) or from [GitHub Releases](https://github.com/rimzzdev/BetterSit/releases).
 2. Place the file into your server's `plugins/` folder.
 3. Restart your server (or use `/reload`, though restart is recommended).
-4. Done! Players can now use `/sit`.
+4. Done! Players can now use `/sit`, `/lay`, and right‑click on appropriate blocks.
 
 ---
 
@@ -41,8 +46,11 @@
 
 | Command | Description | Permission |
 |---------|-------------|------------|
-| `/sit` | Sit down on the spot | `betterSit.sit` |
-| `/bettersit` or `/bsit` | Reload config and languages | `betterSit.admin` |
+| `/sit` | Sit down or stand up | `betterSit.sit` |
+| `/lay` | Lie down or stand up | `betterSit.sit` |
+| `/bsit toggle <stairs\|slab\|carpet\|campfire>` | Enable/disable right‑click sitting for yourself | `betterSit.sit` |
+| `/bsit reload` | Reload config and languages | `betterSit.admin` |
+| `/bsit version` | Show plugin version and link | `betterSit.admin` |
 
 ---
 
@@ -50,8 +58,8 @@
 
 | Permission | Description | Default |
 |------------|-------------|---------|
-| `betterSit.sit` | Allows using `/sit` | ✅ All players |
-| `betterSit.admin` | Allows using `/bettersit` (reload) | ❌ Ops only |
+| `betterSit.sit` | Allows using `/sit`, `/lay` and `/bsit toggle` | ✅ All players |
+| `betterSit.admin` | Allows using `/bsit reload` and `/bsit version` | ❌ Ops only |
 
 ---
 
@@ -61,13 +69,17 @@
 # Language file (en, ru, or any other file in /languages folder)
 language: en
 
-# Center the player on the block when sitting?
-# true = player sits in the middle of the block
-# false = player sits exactly where they stood
+# Center the player on the block when sitting/lying?
 center-on-block: true
 
-# Height offset (negative values make the player sit lower)
+# Height offset for sitting (negative values make the player sit lower)
 sit-height-offset: -0.2
 
-# Cooldown between /sit uses in seconds (0 = disabled)
+# Height offset for lying (negative values make the player lie lower)
+lay-height-offset: -0.8
+
+# Cooldown between /sit or /lay uses in seconds (0 = disabled)
 sit-cooldown: 0
+
+# Allow sitting at campfires (right-click)
+campfire-enabled: true
