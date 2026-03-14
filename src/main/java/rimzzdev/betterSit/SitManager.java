@@ -3,6 +3,7 @@ package rimzzdev.betterSit;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import rimzzdev.betterSit.config.BetterSitConfig;
@@ -164,5 +165,48 @@ public class SitManager {
     @SuppressWarnings("unused")
     public BetterSitConfig getConfig() {
         return config;
+    }
+
+    public boolean sitAtCampfire(Player player, Block campfire) {
+        if (isAny(player)) return false;
+
+        Location sitLoc = findSitLocation(campfire, player);
+        if (sitLoc == null) return false;
+
+        if (sit(player, sitLoc)) {
+            return true;
+        }
+        return false;
+    }
+
+    private Location findSitLocation(Block campfire, Player player) {
+        Location center = campfire.getLocation().clone().add(0.5, 0, 0.5);
+        int[][] offsets = {
+                {1, 0}, {1, 1}, {0, 1}, {-1, 1},
+                {-1, 0}, {-1, -1}, {0, -1}, {1, -1}
+        };
+        double playerX = player.getLocation().getX();
+        double playerZ = player.getLocation().getZ();
+        Location bestLoc = null;
+        double bestDistance = Double.MAX_VALUE;
+
+        for (int[] offset : offsets) {
+            Location loc = center.clone().add(offset[0], 0, offset[1]);
+            Block block = loc.getBlock();
+            Block above = block.getRelative(0, 1, 0);
+
+            if (block.getType().isAir() && above.getType().isAir()) {
+                boolean occupied = loc.getWorld().getNearbyEntities(loc, 0.5, 0.5, 0.5).stream()
+                        .anyMatch(e -> e instanceof Player && !e.equals(player));
+                if (!occupied) {
+                    double dist = Math.hypot(loc.getX() - playerX, loc.getZ() - playerZ);
+                    if (dist < bestDistance) {
+                        bestDistance = dist;
+                        bestLoc = loc.clone();
+                    }
+                }
+            }
+        }
+        return bestLoc;
     }
 }

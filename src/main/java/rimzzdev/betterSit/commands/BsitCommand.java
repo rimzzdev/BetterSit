@@ -61,13 +61,13 @@ public class BsitCommand extends BaseCommand {
     }
 
     @Subcommand("toggle")
-    @Description("Toggle sitting on blocks by right-click (stairs/slab/carpet)")
+    @Description("Toggle sitting on blocks by right-click (stairs/slab/carpet/campfire)")
     public void onToggle(Player player, String category) {
         BlockCategory cat;
         try {
             cat = BlockCategory.valueOf(category.toUpperCase());
         } catch (IllegalArgumentException e) {
-            player.sendMessage(Component.text("Invalid category. Use: stairs, slab, carpet").color(NamedTextColor.RED));
+            player.sendMessage(Component.text("Invalid category. Use: stairs, slab, carpet, campfire").color(NamedTextColor.RED));
             return;
         }
 

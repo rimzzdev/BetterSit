@@ -12,3 +12,6 @@ lay-height-offset: -0.8
 
 # Cooldown between /sit or /lay uses in seconds (0 = disabled)
 sit-cooldown: 0
+
+# Allow sitting at campfires (right-click)
+campfire-enabled: true

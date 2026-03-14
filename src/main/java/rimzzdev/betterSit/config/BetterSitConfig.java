@@ -3,7 +3,6 @@ package rimzzdev.betterSit.config;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-@SuppressWarnings("unused")
 public class BetterSitConfig {
 
     private final JavaPlugin plugin;
@@ -12,6 +11,7 @@ public class BetterSitConfig {
     private double layHeightOffset;
     private int sitCooldown;
     private String language;
+    private boolean campfireEnabled;
 
     public BetterSitConfig(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -28,11 +28,13 @@ public class BetterSitConfig {
         layHeightOffset = config.getDouble("lay-height-offset", -0.8);
         sitCooldown = config.getInt("sit-cooldown", 0);
         language = config.getString("language", "en");
+        campfireEnabled = config.getBoolean("campfire-enabled", true);
     }
 
     public boolean isCenterOnBlock() { return centerOnBlock; }
     public double getSitHeightOffset() { return sitHeightOffset; }
     public double getLayHeightOffset() { return layHeightOffset; }
     public int getSitCooldown() { return sitCooldown; }
-    public String getLanguage() { return language; }
+    @SuppressWarnings("unused") public String getLanguage() { return language; }
+    public boolean isCampfireEnabled() { return campfireEnabled; }
 }

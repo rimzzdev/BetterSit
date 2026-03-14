@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.bukkit.plugin.java.JavaPlugin;
+import rimzzdev.betterSit.BetterSit;
 import rimzzdev.betterSit.SitManager;
 import rimzzdev.betterSit.config.LanguageManager;
 import rimzzdev.betterSit.utils.BlockCategory;
@@ -22,9 +22,9 @@ public class PlayerListener implements Listener {
 
     private final SitManager sitManager;
     private final LanguageManager lang;
-    private final JavaPlugin plugin;
+    private final BetterSit plugin; // изменено с JavaPlugin на BetterSit
 
-    public PlayerListener(SitManager sitManager, LanguageManager lang, JavaPlugin plugin) {
+    public PlayerListener(SitManager sitManager, LanguageManager lang, BetterSit plugin) {
         this.sitManager = sitManager;
         this.lang = lang;
         this.plugin = plugin;
@@ -47,7 +47,6 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        // Используем правильное имя метода – checkForPlayer
         ModrinthUpdateChecker.checkForPlayer(event.getPlayer(), plugin);
     }
 
@@ -68,6 +67,9 @@ public class PlayerListener implements Listener {
             category = BlockCategory.CARPET;
         } else if (type.name().endsWith("_SLAB") && !type.name().contains("PRESSURE_PLATE")) {
             category = BlockCategory.SLAB;
+        } else if (type == Material.CAMPFIRE || type == Material.SOUL_CAMPFIRE) {
+            if (!plugin.getPluginConfig().isCampfireEnabled()) return;
+            category = BlockCategory.CAMPFIRE;
         }
 
         if (category == null) return;
@@ -81,13 +83,27 @@ public class PlayerListener implements Listener {
         }
 
         event.setCancelled(true);
-        Location sitLoc = block.getLocation().clone().add(0.5, 0, 0.5);
 
-        if (sitManager.sit(player, sitLoc)) {
+        boolean success;
+        if (category == BlockCategory.CAMPFIRE) {
+            success = sitManager.sitAtCampfire(player, block);
+        } else {
+            Location sitLoc = block.getLocation().clone().add(0.5, 0, 0.5);
+            success = sitManager.sit(player, sitLoc);
+        }
+
+        if (success) {
             sitManager.updateCooldown(player);
             Component msg = lang.getPrefixedMessage("now-sitting");
             if (msg != Component.empty()) player.sendMessage(msg);
         } else {
+            if (category == BlockCategory.CAMPFIRE) {
+                Component noSpaceMsg = lang.getPrefixedMessage("no-space-around-campfire");
+                if (noSpaceMsg != Component.empty()) {
+                    player.sendMessage(noSpaceMsg);
+                    return;
+                }
+            }
             Component msg = lang.getPrefixedMessage("sit-failed");
             if (msg != Component.empty()) player.sendMessage(msg);
         }
